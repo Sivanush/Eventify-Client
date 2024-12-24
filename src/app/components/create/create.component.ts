@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { CloudinaryService } from '../../service/cloudinary/cloudinary.service';
 import { EventsService } from '../../service/events/events.service';
 import { ToastService } from '../../service/toast/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -26,7 +27,8 @@ export class CreateComponent {
     private fb: FormBuilder,
     private cloudinaryService: CloudinaryService,
     private eventService: EventsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router:Router
   ) {
 
   }
@@ -130,6 +132,7 @@ export class CreateComponent {
               next: (res) => {
                 console.log(res);
                 this.toastService.showSuccess('Event created Successfully')
+                this.router.navigate(['/event',res.eventId])
               }
             })
           },
@@ -147,6 +150,7 @@ export class CreateComponent {
           next: (res) => {
             console.log(res);
             this.toastService.showSuccess('Event created Successfully')
+            this.router.navigate(['/event',res.eventId])
           },
           error: (err) => {
             console.error(err);

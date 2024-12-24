@@ -6,5 +6,6 @@ export interface Event{
     location:string,
     audiences:string[],
     images:string[],
-    createdAt:string
+    createdAt:string,
+    details:string
 }
