@@ -1,0 +1,49 @@
+<section class="py-8 ">
+  <div class="container mx-auto text-center px-4">
+    <h2 class="text-3xl font-semibold mb-6">Find Events</h2>
+    <div class="flex flex-col sm:grid sm:grid-cols-3 sm:gap-6 gap-4 mb-6 max-w-4xl mx-auto justify-center items-center"
+      >
+
+      <input name="date" type="date" class="border-2 border-indigo-600 px-4 py-2 rounded-md w-full sm:w-auto"
+        placeholder="Select Date" [(ngModel)]="filters.date" (ngModelChange)="applyFilters()">
+
+      <select name="location" class="border-2 border-indigo-600 px-4 py-2 rounded-md w-full sm:w-auto" [(ngModel)]="filters.location"
+        (ngModelChange)="applyFilters()">
+        <option selected value="">Select Location</option>
+        <option *ngFor="let loc of uniqueLocations" [value]="loc">{{ loc }}</option>
+      </select>
+
+      <select name="audience" class="border-2 border-indigo-600 px-4 py-2 rounded-md w-full sm:w-auto" [(ngModel)]="filters.audience"
+        (ngModelChange)="applyFilters()">
+        <option selected value="">Select Audience</option>
+        <option *ngFor="let aud of uniqueAudiences" [value]="aud">{{ aud }}</option>
+      </select>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- Event List Section -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto">
+    <h3 class="text-2xl font-semibold mb-6 text-center">Upcoming Events</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-3">
+      <!-- Event Card -->
+
+      <ng-container *ngIf="events.length > 0; else noEvents" >
+      <div [routerLink]="['/event',event.eventId]"  *ngFor="let event of events" class="bg-white p-6 rounded-lg shadow-lg cursor-pointer">
+        <h4 class="text-xl font-semibold text-indigo-600 mb-4">{{event.name}}</h4>
+        <p><strong>Date:</strong> {{ event.date | date:'mediumDate' }}</p>
+        <p><strong>Time:</strong> {{event.time}}</p>
+        <p><strong>Location:</strong> {{event.location}}</p>
+        <p class="mt-4 text-indigo-600 hover:text-indigo-800">
+          View Details</p>
+      </div>
+    </ng-container>
+    <ng-template #noEvents>
+      <p class="text-center items-center justify-center flex text-gray-500">No events available at the moment.</p>
+    </ng-template>
+    </div>
+  </div>
+</section>
